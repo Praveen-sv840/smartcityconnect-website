@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>💳 Pay Utility Bills</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f8fb;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #0066cc;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    p {
+      color: #555;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    select, input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Custom popup modal */
+    #successModal {
+      display: none;
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -30%);
+      background-color: white;
+      padding: 1.5rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      z-index: 999;
+      text-align: center;
+    }
+
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.3);
+      z-index: 998;
+    }
+
+    #successModal button {
+      margin-top: 1rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>💳 Pay Utility Bills</h1>
+    <p>Electricity, water, and property tax bills. Easy online payment with digital receipts.</p>
+  </header>
+
+  <div class="container">
+    <form id="paymentForm">
+      <label for="utility">Select Utility</label>
+      <select id="utility" name="utility" required>
+        <option value="">-- Choose Utility --</option>
+        <option value="electricity">Electricity</option>
+        <option value="water">Water</option>
+        <option value="property-tax">Property Tax</option>
+      </select>
+
+      <label for="account">Account Number / Property ID</label>
+      <input type="text" id="account" name="account" placeholder="Enter your account number" required />
+
+      <label for="amount">Amount to Pay (₹)</label>
+      <input type="number" id="amount" name="amount" min="1" required />
+
+      <button type="submit">Pay Now</button>
+    </form>
+  </div>
+
+  <!-- Custom Modal -->
+  <div id="successModal">
+    <p>Payment completed successfully!</p>
+    <button onclick="closeModal()">OK</button>
+  </div>
+  <div id="overlay"></div>
+
+  <script>
+    document.getElementById("paymentForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      document.getElementById("successModal").style.display = "block";
+      document.getElementById("overlay").style.display = "block";
+      this.reset();
+    });
+
+    function closeModal() {
+      document.getElementById("successModal").style.display = "none";
+      document.getElementById("overlay").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>

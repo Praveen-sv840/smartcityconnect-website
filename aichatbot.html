@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Chatbot Assistant – SmartCity Connect</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #f4f6f8;
+      color: #333;
+    }
+
+    header {
+      background-color: #0077cc;
+      color: white;
+      padding: 1em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    nav {
+      background-color: #fff;
+      padding: 1em;
+      display: flex;
+      gap: 1em;
+      flex-wrap: wrap;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #0077cc;
+      font-weight: bold;
+      padding: 0.5em 1em;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #e6f0fa;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background-color: white;
+      padding: 2em;
+      margin-top: 2em;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1em;
+    }
+
+    .chat-iframe {
+      width: 100%;
+      min-height: 700px;
+      border: none;
+    }
+
+    .chat-icon {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      width: 60px;
+      height: 60px;
+      background-color: #0077cc;
+      border-radius: 50%;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .chat-icon img {
+      width: 30px;
+      height: 30px;
+    }
+
+    footer {
+      margin-top: 3em;
+      background-color: #0077cc;
+      color: white;
+      text-align: center;
+      padding: 1em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>SmartCity Connect</h1>
+    <div>Welcome, Sony</div>
+  </header>
+
+  <nav>
+    <a href="home.html">🏠 Home</a>
+    
+    <a href="report.html">🛠️ Report Issue</a>
+    <a href="complaints.html">📋 Track Complaints</a>
+    <a href="services.html">📄 E-Governance</a>
+    
+    <a href="opendata.html">📊 Open Data</a>
+    <a href="aichatbot.html">🤖 AI Assistant</a>
+    <a href="setting.html">⚙️ Settings</a>
+  </nav>
+
+  <div class="container">
+    <h2>🤖 AI Chatbot Assistant</h2>
+    <iframe
+      src="https://www.chatbase.co/chatbot-iframe/ZXksuOmE3tLtHaDHqP-C9"
+      class="chat-iframe"
+    ></iframe>
+  </div>
+
+  <div class="chat-icon" title="AI Chatbot">
+    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Chatbot Icon" />
+  </div>
+
+  <footer>
+    &copy; 2025 SmartCity Connect. All rights reserved.
+  </footer>
+
+</body>
+</html>

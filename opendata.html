@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Open Data & City Insights – SmartCity Connect</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #f4f6f8;
+      color: #333;
+    }
+
+    header {
+      background-color: #0077cc;
+      color: white;
+      padding: 1em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    nav {
+      background-color: #fff;
+      padding: 1em;
+      display: flex;
+      gap: 1em;
+      flex-wrap: wrap;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #0077cc;
+      font-weight: bold;
+      padding: 0.5em 1em;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #e6f0fa;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      background-color: white;
+      padding: 2em;
+      margin-top: 2em;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5em;
+    }
+
+    .insight-section {
+      margin-bottom: 2em;
+    }
+
+    .insight-section h3 {
+      color: #0077cc;
+      margin-bottom: 0.5em;
+    }
+
+    .card {
+      background-color: #eef6ff;
+      padding: 1em 1.5em;
+      border-radius: 8px;
+      margin-bottom: 1em;
+    }
+
+    .btn {
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      padding: 0.5em 1em;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 0.5em;
+    }
+
+    .btn:hover {
+      background-color: #005fa3;
+    }
+
+    .chart {
+      width: 100%;
+      max-width: 600px;
+      height: 300px;
+      margin: auto;
+      margin-top: 1em;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+    }
+
+    .download-link {
+      display: inline-block;
+      margin-top: 0.5em;
+      color: #0077cc;
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: 3em;
+      background-color: #0077cc;
+      color: white;
+      text-align: center;
+      padding: 1em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>SmartCity Connect</h1>
+    <div>Welcome, Sony</div>
+  </header>
+
+  <nav>
+    <a href="home.html">🏠 Home</a>
+    
+    <a href="report.html">🛠️ Report Issue</a>
+    <a href="complaints.html">📋 Track Complaints</a>
+    <a href="services.html">📄 E-Governance</a>
+    
+    <a href="opendata.html">📊 Open Data</a>
+    <a href="aichatbot.html">🤖 AI Assistant</a>
+    <a href="setting.html">⚙️ Settings</a>
+  </nav>
+
+  <div class="container">
+    <h2>📊 Open Data & City Insights</h2>
+
+    <div class="insight-section">
+      <h3>🌍 Pollution Dashboard</h3>
+      <div class="card">
+        <p>Air Quality Index (AQI) – Your Area: <strong>178 (Moderate)</strong></p>
+        <div class="chart">
+          <canvas id="pollutionChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-section">
+      <h3>🔌 Energy Usage Insights</h3>
+      <div class="card">
+        <p>This week's average consumption: <strong>2.3 kWh</strong></p>
+        <div class="chart">
+          <canvas id="energyChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-section">
+      <h3>📂 Download Datasets</h3>
+      <div class="card">
+        <p>Access public datasets to build your own smart solutions.</p>
+        <a class="download-link" href="#">Download Waste Management (CSV)</a><br>
+        <a class="download-link" href="#">Download Budget Allocation (JSON)</a>
+      </div>
+    </div>
+
+    <div class="insight-section">
+      <h3>🤖 AI Suggestions</h3>
+      <div class="card">
+        <p>“Your area has had <strong>32 waste complaints</strong> in the past month. Consider requesting extra bins.”</p>
+        <button class="btn" onclick="alert('Request submitted to waste department')">Request Extra Bin</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 SmartCity Connect. All rights reserved.
+  </footer>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const pollutionCtx = document.getElementById('pollutionChart').getContext('2d');
+    const pollutionChart = new Chart(pollutionCtx, {
+      type: 'line',
+      data: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        datasets: [{
+          label: 'AQI',
+          data: [150, 160, 165, 180, 170, 175, 178],
+          borderColor: '#ff6b6b',
+          backgroundColor: 'rgba(255,107,107,0.2)',
+          fill: true,
+          tension: 0.3
+        }]
+      }
+    });
+
+    const energyCtx = document.getElementById('energyChart').getContext('2d');
+    const energyChart = new Chart(energyCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        datasets: [{
+          label: 'kWh Usage',
+          data: [2.1, 2.5, 2.2, 2.6, 2.4, 2.3, 2.0],
+          backgroundColor: '#0077cc'
+        }]
+      }
+    });
+  </script>
+
+</body>
+</html>

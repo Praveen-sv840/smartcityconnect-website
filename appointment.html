@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>📆 Schedule Appointments</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f9fc;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #0066cc;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    p {
+      color: #555;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    select, input[type="date"], input[type="time"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    /* Modal styles */
+    #successModal {
+      display: none;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 998;
+    }
+
+    .modal-content {
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -30%);
+      background: white;
+      padding: 1.5rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      z-index: 999;
+      text-align: center;
+    }
+
+    .modal-content button {
+      margin-top: 1rem;
+      background-color: #0066cc;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .modal-content button:hover {
+      background-color: #004b99;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>📆 Schedule Appointments</h1>
+    <p>Book time slots to meet officials in various city departments.</p>
+  </header>
+
+  <div class="container">
+    <form id="appointmentForm">
+      <label for="department">Select Department</label>
+      <select id="department" name="department" required>
+        <option value="">-- Choose Department --</option>
+        <option value="municipal">Municipal Office</option>
+        <option value="health">Public Health</option>
+        <option value="transport">Transport Authority</option>
+        <option value="sanitation">Sanitation</option>
+        <option value="tax">Tax Department</option>
+      </select>
+
+      <label for="date">Choose Date</label>
+      <input type="date" id="date" name="date" required />
+
+      <label for="time">Choose Time Slot</label>
+      <input type="time" id="time" name="time" required />
+
+      <button type="submit">Book Appointment</button>
+    </form>
+  </div>
+
+  <!-- Custom Modal -->
+  <div id="successModal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+      <p>✅ Appointment booked successfully!</p>
+      <button onclick="closeModal()">OK</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("appointmentForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const department = document.getElementById("department").value;
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
+
+      const appointment = {
+        department,
+        date,
+        time,
+        bookedAt: new Date().toLocaleString()
+      };
+
+      const appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+      appointments.push(appointment);
+      localStorage.setItem("appointments", JSON.stringify(appointments));
+
+      // Show the modal
+      document.getElementById("successModal").style.display = "block";
+
+      // Reset form
+      this.reset();
+    });
+
+    function closeModal() {
+      document.getElementById("successModal").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Services & E-Governance – SmartCity Connect</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #f4f6f8;
+      color: #333;
+    }
+
+    header {
+      background-color: #0077cc;
+      color: white;
+      padding: 1em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    nav {
+      background-color: #005fa3;
+      padding: 0.5em 2em;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1em;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5em;
+      border-radius: 6px;
+    }
+
+    .nav-links li a:hover {
+      background-color: #00457c;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      background-color: white;
+      padding: 2em;
+      margin-top: 2em;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5em;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5em;
+    }
+
+    .card {
+      background-color: #f9fafa;
+      border-radius: 10px;
+      padding: 1.5em;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      background-color: #eef6ff;
+    }
+
+    .card h3 {
+      margin: 0 0 0.5em 0;
+      color: #0077cc;
+    }
+
+    .card p {
+      font-size: 0.95em;
+      color: #555;
+    }
+
+    footer {
+      margin-top: 3em;
+      background-color: #0077cc;
+      color: white;
+      text-align: center;
+      padding: 1em;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 0.5em;
+      background-color: #0077cc;
+      color: white;
+      padding: 0.6em 1.2em;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background-color 0.2s;
+    }
+
+    .btn:hover {
+      background-color: #005fa3;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>SmartCity Connect</h1>
+    <div>Welcome, Sony</div>
+  </header>
+
+  <nav>
+    <ul class="nav-links">
+      <li><a href="home.html">Dashboard</a></li>
+      <li><a href="services.html">Citizen Services</a></li>
+      
+      <li><a href="opendata.html">Open Data & Insights</a></li>
+      <li><a href="report.html">Issue Reports</a></li>
+      
+      <li><a href="setting.html">Settings</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h2>🛠️ Services & E-Governance</h2>
+
+    <div class="services-grid" id="servicesContainer">
+      <!-- Services will load here -->
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 SmartCity Connect. All rights reserved.
+  </footer>
+
+  <script>
+    const services = [
+      {
+        title: "💡 Pay Utility Bills",
+        desc: "Electricity, water, and property tax bills. Easy online payment with digital receipts.",
+        link: "paybill.html"
+      },
+      {
+        title: "📜 Apply for driving Licenses",
+        desc: "Apply for driving licenses online.",
+        link: "https://sarathi.parivahan.gov.in/. "
+      },
+      
+      {
+        title: "📥 RTI platform ",
+        desc: "All official forms, RTI requests, tax statements, and certificates in one place.",
+        link: "https://parivahan.gov.in/parivahan/"
+      },
+      {
+        title: "📆 Schedule Appointments",
+        desc: "Book time slots to meet officials in various city departments.",
+        link: "appointment.html"
+      },
+      {
+        title: "🆔 Digital ID & Verification",
+        desc: "Link your profile with Aadhaar, DigiLocker, and verify documents securely.",
+        link: "https://www.digilocker.gov.in/"
+      }
+    ];
+
+    function renderServices() {
+      const container = document.getElementById("servicesContainer");
+      container.innerHTML = "";
+
+      services.forEach(service => {
+        const div = document.createElement("div");
+        div.className = "card";
+
+        div.innerHTML = `
+          <h3>${service.title}</h3>
+          <p>${service.desc}</p>
+          <a href="${service.link}" class="btn">Explore</a>
+        `;
+
+        container.appendChild(div);
+      });
+    }
+
+    renderServices();
+  </script>
+
+</body>
+</html>

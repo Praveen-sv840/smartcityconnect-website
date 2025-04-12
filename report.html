@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Report an Issue – SmartCity Connect</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #f4f6f8;
+      color: #333;
+    }
+
+    header {
+      background-color: #0077cc;
+      color: white;
+      padding: 1em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    nav {
+      background-color: #005fa3;
+      padding: 0.5em 2em;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1em;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5em;
+      border-radius: 6px;
+    }
+
+    .nav-links li a:hover {
+      background-color: #00457c;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background-color: white;
+      padding: 2em;
+      margin-top: 2em;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    label {
+      font-weight: bold;
+      margin-top: 1em;
+      display: block;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 0.7em;
+      margin-top: 0.3em;
+      margin-bottom: 1em;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1em;
+    }
+
+    input[type="file"] {
+      margin-bottom: 1em;
+    }
+
+    .location-group {
+      display: flex;
+      gap: 1em;
+      align-items: center;
+    }
+
+    .btn {
+      background-color: #0077cc;
+      color: white;
+      padding: 0.7em 1.5em;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+
+    .btn:hover {
+      background-color: #005fa3;
+    }
+
+    .toggle-anonymous {
+      margin-bottom: 1em;
+    }
+
+    footer {
+      margin-top: 3em;
+      background-color: #0077cc;
+      color: white;
+      text-align: center;
+      padding: 1em;
+    }
+
+    /* Modal styles */
+    #successModal {
+      display: none;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 998;
+    }
+
+    .modal-content {
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -30%);
+      background: white;
+      padding: 1.5rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      z-index: 999;
+      text-align: center;
+    }
+
+    .modal-content button {
+      margin-top: 1rem;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .modal-content button:hover {
+      background-color: #005fa3;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>SmartCity Connect</h1>
+    <div id="userStatus">Welcome, Sony</div>
+  </header>
+
+  <nav>
+    <ul class="nav-links">
+      <li><a href="home.html">Dashboard</a></li>
+      <li><a href="services.html">Citizen Services</a></li>
+      
+      <li><a href="opendata.html">Open Data & Insights</a></li>
+      <li><a href="report.html">Issue Reports</a></li>
+      <li><a href="setting.html">Settings</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h2>🛠️ Report an Issue</h2>
+    <form id="issueForm">
+      <label for="category">Issue Category</label>
+      <select id="category" required>
+        <option value="">-- Select --</option>
+        <option value="Road">Road</option>
+        <option value="Water">Water</option>
+        <option value="Electricity">Electricity</option>
+        <option value="Sanitation">Sanitation</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="description">Description</label>
+      <textarea id="description" rows="4" placeholder="Describe the issue in detail..." required></textarea>
+
+      <label for="fileUpload">Upload Image/Video (optional)</label>
+      <input type="file" id="fileUpload" accept="image/*,video/*" />
+
+      <div class="location-group">
+        <label for="location">Location</label>
+        <input type="text" id="location" placeholder="Auto-detecting..." readonly />
+        <button type="button" class="btn" onclick="getLocation()">📍 Detect</button>
+      </div>
+
+      <div class="toggle-anonymous">
+        <input type="checkbox" id="anonymous" />
+        <label for="anonymous">Submit anonymously</label>
+      </div>
+
+      <p><strong>Estimated response time:</strong> 48 hours</p>
+
+      <button type="submit" class="btn">Submit Report</button>
+    </form>
+  </div>
+
+  <!-- Custom Modal -->
+  <div id="successModal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+      <p>✅ Issue submitted successfully!</p>
+      <button onclick="closeModal()">OK</button>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 SmartCity Connect. All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById("issueForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const category = document.getElementById("category").value;
+      const description = document.getElementById("description").value;
+      const file = document.getElementById("fileUpload").files[0];
+      const location = document.getElementById("location").value;
+      const isAnonymous = document.getElementById("anonymous").checked;
+
+      const report = {
+        category,
+        description,
+        fileName: file ? file.name : "None",
+        location,
+        anonymous: isAnonymous,
+        timestamp: new Date().toLocaleString()
+      };
+
+      const reports = JSON.parse(localStorage.getItem("issueReports")) || [];
+      reports.push(report);
+      localStorage.setItem("issueReports", JSON.stringify(reports));
+
+      // Show custom modal
+      document.getElementById("successModal").style.display = "block";
+
+      // Reset form
+      this.reset();
+      document.getElementById("location").value = "";
+    });
+
+    function closeModal() {
+      document.getElementById("successModal").style.display = "none";
+    }
+
+    function getLocation() {
+      const locationInput = document.getElementById("location");
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            const lat = position.coords.latitude.toFixed(4);
+            const lon = position.coords.longitude.toFixed(4);
+            locationInput.value = `Lat: ${lat}, Lon: ${lon}`;
+          },
+          () => {
+            alert("⚠️ Unable to retrieve your location.");
+          }
+        );
+      } else {
+        alert("⚠️ Geolocation not supported by this browser.");
+      }
+    }
+  </script>
+
+</body>
+</html>

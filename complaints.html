@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Track Your Complaints – SmartCity Connect</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #f4f6f8;
+      color: #333;
+    }
+
+    header {
+      background-color: #0077cc;
+      color: white;
+      padding: 1em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    nav {
+      background-color: #fff;
+      padding: 1em;
+      display: flex;
+      gap: 1em;
+      flex-wrap: wrap;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #0077cc;
+      font-weight: bold;
+      padding: 0.5em 1em;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #e6f0fa;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background-color: white;
+      padding: 2em;
+      margin-top: 2em;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5em;
+    }
+
+    .complaint {
+      border-left: 5px solid #0077cc;
+      padding: 1em;
+      margin-bottom: 1em;
+      border-radius: 8px;
+      background-color: #f9fafa;
+    }
+
+    .complaint h3 {
+      margin: 0;
+      color: #0077cc;
+    }
+
+    .status {
+      font-weight: bold;
+      padding: 0.3em 0.6em;
+      border-radius: 4px;
+      margin-top: 0.5em;
+      display: inline-block;
+    }
+
+    .Pending { background-color: #ffb347; color: #fff; }
+    .InProgress { background-color: #3498db; color: #fff; }
+    .Resolved { background-color: #2ecc71; color: #fff; }
+
+    .feedback-box {
+      margin-top: 1em;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 0.7em;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      resize: vertical;
+    }
+
+    .btn {
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      padding: 0.6em 1.2em;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 0.5em;
+    }
+
+    .btn:hover {
+      background-color: #005fa3;
+    }
+
+    footer {
+      margin-top: 3em;
+      background-color: #0077cc;
+      color: white;
+      text-align: center;
+      padding: 1em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>SmartCity Connect</h1>
+    <div>Welcome, Sony</div>
+  </header>
+
+  <nav>
+    <a href="home.html">🏠 Home</a>
+    <a href="report.html">🛠️ Report Issue</a>
+    <a href="complaints.html">📋 Track Complaints</a>
+    <a href="services.html">📄 E-Governance</a>
+  
+    <a href="opendata.html">📊 Open Data</a>
+    <a href="aichatbot.html">🤖 AI Assistant</a>
+    <a href="setting.html">⚙️ Settings</a>
+  </nav>
+
+  <div class="container">
+    <h2>📋 Track Your Complaints</h2>
+
+    <div id="complaintsList">
+      <!-- Complaints will be loaded here -->
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 SmartCity Connect. All rights reserved.
+  </footer>
+
+  <script>
+    // Dummy complaint data
+    const complaints = [
+      {
+        id: "CMP-001",
+        title: "Pothole near Main Street",
+        status: "Pending",
+        dept: "Public Works",
+        date: "2025-04-05"
+      },
+      {
+        id: "CMP-002",
+        title: "Streetlight not working",
+        status: "InProgress",
+        dept: "Electrical Department",
+        date: "2025-04-07"
+      },
+      {
+        id: "CMP-003",
+        title: "Garbage not collected",
+        status: "Resolved",
+        dept: "Sanitation Department",
+        date: "2025-04-03"
+      }
+    ];
+
+    function renderComplaints() {
+      const container = document.getElementById("complaintsList");
+      container.innerHTML = "";
+
+      complaints.forEach(complaint => {
+        const div = document.createElement("div");
+        div.className = "complaint";
+
+        div.innerHTML = `
+          <h3>${complaint.title}</h3>
+          <p><strong>ID:</strong> ${complaint.id}</p>
+          <p><strong>Department:</strong> ${complaint.dept}</p>
+          <p><strong>Date:</strong> ${complaint.date}</p>
+          <span class="status ${complaint.status.replace(" ", "")}">${complaint.status}</span>
+          ${complaint.status === "Resolved" ? `
+            <div class="feedback-box">
+              <label for="feedback-${complaint.id}">Feedback:</label>
+              <textarea id="feedback-${complaint.id}" rows="2" placeholder="Write your feedback here..."></textarea>
+              <button class="btn" onclick="submitFeedback('${complaint.id}')">Submit</button>
+            </div>
+          ` : ""}
+        `;
+
+        container.appendChild(div);
+      });
+    }
+
+    function submitFeedback(id) {
+      const textarea = document.getElementById(`feedback-${id}`);
+      const feedback = textarea.value.trim();
+
+      if (feedback) {
+        alert(`Feedback for ${id} submitted: "${feedback}"`);
+        textarea.value = "";
+      } else {
+        alert("Please write some feedback before submitting.");
+      }
+    }
+
+    // Initial render
+    renderComplaints();
+  </script>
+
+</body>
+</html>
